@@ -10,16 +10,23 @@ matrix:
         - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
       before_install: 
         - eval "${MATRIX_EVAL}"
+        - apt-get -qq update
+        - apt-get install -y libgtest-dev cmake
+        - cd /usr/src/gtest
+        - mkdir install 
+        - mkdir build 
+        - cd build
+        - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="/usr/src/gtest/install"
+        - cmake --build .
+        - cmake --install .
+        - cd "${TRAVIS_BUILD_DIR}"
+      before_script:
         - mkdir build
         - cd build
-        - pwd
-        - cmake .. -Dtravis-test_BUILD_TESTS
       script:
-        - cmake -- build .
+        - cmake .. -Dtravis-test_BUILD_TESTS -DGtest_DIR="/usr/src/gtest/install/lib/cmake/GTest"
+        - cmake --build .
         - ctest
-
-install:
-  - cmake
 
 addons:
   apt:
@@ -30,4 +37,11 @@ addons:
       - g++-9
       - gcc-9
       - clang-9
-      - libgtest-dev
+      - cmake
+
+notifications:
+  recipients:
+    - asharnrus.info@gmail.com
+  email:
+    on_success: never
+    on_failure: change
