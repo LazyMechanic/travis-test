@@ -3,6 +3,19 @@ language: cpp
 matrix:
   fast_finish: true
   include:
+    ##### Windows
+    ### MSVC
+    - os: windows
+      env: BUILD_TYPE=Release GENERATOR="Visual Studio 15 2017 Win64"
+      script: ./ci/windows.sh
+    - os: windows
+      env: BUILD_TYPE=Release GENERATOR="Visual Studio 14 2015 Win64"
+      script: ./ci/windows.sh
+    ### MinGW
+    - os: windows
+      env: BUILD_TYPE=Release GENERATOR="MinGW Makefiles"
+      install: choco install mingw
+      script: ./ci/windows.sh
     ##### Linux
     ### GCC
     - os: linux
@@ -67,4 +80,4 @@ notifications:
     recipients:
       - asharnrus.info@gmail.com
     on_success: never
-    on_failure: change
+    on_failure: always

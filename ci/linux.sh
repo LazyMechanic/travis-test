@@ -1,6 +1,6 @@
-# Get newest cmake
 #!/usr/bin/env sh
 
+# Get newest cmake
 CMAKE_DIR="/opt/cmake"
 CMAKE="$CMAKE_DIR/bin/cmake"
 CTEST="$CMAKE_DIR/bin/ctest"
