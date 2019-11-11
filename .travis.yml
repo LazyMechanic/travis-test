@@ -12,8 +12,8 @@ matrix:
         - sudo apt-get -qq update
         - sudo apt-get install -y libgtest-dev cmake
         - cd /usr/src/gtest
-        - mkdir install 
-        - mkdir build 
+        - sudo mkdir install 
+        - sudo mkdir build 
         - cd build
         - sudo cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="/usr/src/gtest/install"
         - sudo cmake --build .
@@ -23,7 +23,7 @@ matrix:
         - sudo cmake --install .
         - cd "${TRAVIS_BUILD_DIR}"
       before_script:
-        - mkdir build
+        - sudo mkdir build
         - cd build
       script:
         - sudo cmake .. -Dtravis-test_BUILD_TESTS -DGtest_DIR="/usr/src/gtest/install/lib/cmake/GTest"
