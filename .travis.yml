@@ -1,0 +1,32 @@
+language: cpp
+sudo: required
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      compiler: gcc
+      env:
+        - MATRIX_EVAL="CC=gcc-9.2 && CXX=g++-9.2"
+      before_install: 
+        - eval "${MATRIX_EVAL}"
+        - mkdir build
+        - cd build
+        - cmake .. -Dtravis-test_BUILD_TESTS
+      script:
+        - cmake -- build .
+        - ctest
+
+install:
+  - cmake
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty
+    packages:
+      - g++-9.2
+      - gcc-9.2
+      - clang-8.0
+      - libgtest-dev
