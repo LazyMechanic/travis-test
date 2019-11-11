@@ -9,6 +9,12 @@ target_link_libraries(
     GTest::gtest
     GTest::gtest_main)
 
+set_target_properties(
+    _test PROPERTIES
+    CXX_STANDARD          17
+    CXX_EXTENSIONS        OFF
+    CXX_STANDARD_REQUIRED YES)
+
 add_test(
     NAME travis_test
     COMMAND _test)

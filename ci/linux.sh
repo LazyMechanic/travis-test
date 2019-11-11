@@ -14,7 +14,9 @@ cd googletest-release-1.10.0
 sudo mkdir install 
 sudo mkdir build 
 cd build
-sudo ${CMAKE_DIR}/cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="/usr/src/gtest"
+sudo ${CMAKE_DIR}/cmake .. \
+    -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+    -DCMAKE_INSTALL_PREFIX="/usr/src/gtest"
 sudo ${CMAKE_DIR}/cmake --build .
 sudo ${CMAKE_DIR}/cmake --install .
 
