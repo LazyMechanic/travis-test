@@ -5,8 +5,7 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-      env:
-        - BUILD_TYPE=Release
+      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -14,12 +13,10 @@ matrix:
           packages:
             - g++-9
             - gcc-9
-      script:
-        - sudo bash ./ci/linux.sh
+      script: sudo bash ./ci/linux.sh
     - os: linux
       compiler: gcc
-      env:
-        - BUILD_TYPE=Debug
+      env: BUILD_TYPE=Debug
       addons:
         apt:
           sources:
@@ -27,12 +24,10 @@ matrix:
           packages:
             - g++-9
             - gcc-9
-      script:
-        - sudo bash ./ci/linux.sh
+      script: sudo bash ./ci/linux.sh
     - os: linux
       compiler: gcc
-      env:
-        - BUILD_TYPE=Release
+      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -40,12 +35,10 @@ matrix:
           packages:
             - g++-8
             - gcc-8
-      script:
-        - sudo bash ./ci/linux.sh
+      script: sudo bash ./ci/linux.sh
     - os: linux
       compiler: gcc
-      env:
-        - BUILD_TYPE=Debug
+      env: BUILD_TYPE=Debug
       addons:
         apt:
           sources:
@@ -53,19 +46,9 @@ matrix:
           packages:
             - g++-8
             - gcc-8
-      script:
-        - sudo bash ./ci/linux.sh
+      script: sudo bash ./ci/linux.sh
     
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty
-    packages:
-      - g++-9
-      - gcc-9
-      - clang-9
+script: sudo bash ./ci/build.sh
 
 notifications:
   email:
