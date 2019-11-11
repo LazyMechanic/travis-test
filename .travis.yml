@@ -1,11 +1,11 @@
 language: cpp
-sudo: required
 
 matrix:
   fast_finish: true
   include:
     - os: linux
       compiler: gcc
+      sudo: true
       env:
         - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
       before_install: 
