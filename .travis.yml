@@ -12,6 +12,7 @@ matrix:
         - eval "${MATRIX_EVAL}"
         - mkdir build
         - cd build
+        - pwd
         - cmake .. -Dtravis-test_BUILD_TESTS
       script:
         - cmake -- build .
