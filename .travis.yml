@@ -23,6 +23,7 @@ matrix:
         - sudo cmake --install .
         - cd "${TRAVIS_BUILD_DIR}"
       before_script:
+        - sudo ls -a
         - sudo mkdir build
         - cd build
       script:
