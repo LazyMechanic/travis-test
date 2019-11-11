@@ -8,9 +8,7 @@
 
 TEST(Test, Test)
 {
-    EXPECT_EQ(always_return_true(), false);
     EXPECT_EQ(always_return_true(), true);
-    ASSERT_EQ(always_return_true(), false);
     ASSERT_EQ(always_return_true(), true);
 }
 
