@@ -3,20 +3,11 @@ language: cpp
 matrix:
   fast_finish: true
   include:
+    ##### Linux
+    ### GCC
     - os: linux
       compiler: gcc
       env: BUILD_TYPE=Release
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9
-            - gcc-9
-      script: sudo bash ./ci/linux.sh
-    - os: linux
-      compiler: gcc
-      env: BUILD_TYPE=Debug
       addons:
         apt:
           sources:
@@ -38,17 +29,38 @@ matrix:
       script: sudo bash ./ci/linux.sh
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Debug
+      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-8
-            - gcc-8
+            - g++-7
+            - gcc-7
       script: sudo bash ./ci/linux.sh
-    
-script: sudo bash ./ci/build.sh
+    ### Clang
+    - os: linux
+      compiler: clang
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-8
+          packages:
+            - clang-8
+      script: sudo bash ./ci/linux.sh
+    - os: linux
+      compiler: clang
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-7
+          packages:
+            - clang-7
+      script: sudo bash ./ci/linux.sh
 
 notifications:
   email:
