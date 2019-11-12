@@ -45,6 +45,8 @@ matrix:
             - llvm-toolchain-trusty-8
           packages:
             - clang-8
+      before_script:
+        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
     - os: linux
       compiler: clang
       env: BUILD_TYPE=Release
@@ -55,9 +57,11 @@ matrix:
             - llvm-toolchain-trusty-7
           packages:
             - clang-7
+      before_script:
+        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
 
 script:
-  - # Get newest cmake
+  # Get newest cmake
   - CMAKE_DIR="/opt/cmake"
   - CMAKE="$CMAKE_DIR/bin/cmake"
   - CTEST="$CMAKE_DIR/bin/ctest"
@@ -66,13 +70,11 @@ script:
   - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
   - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
 
-  - # Download googletest
+  # Download googletest
   - sudo wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
   - sudo tar -xzf release-1.10.0.tar.gz
 
   - GTEST_DIR="$(pwd)/googletest-release-1.10.0"
-
-  - cd "$TRAVIS_BUILD_DIR"
 
   - # Compile googletest
   - cd "$GTEST_DIR"
@@ -84,14 +86,14 @@ script:
   - sudo $CMAKE --build .
   - sudo $CMAKE --install .
 
-  - # Compile target
+  # Compile target
   - cd "$TRAVIS_BUILD_DIR"
   - sudo mkdir build
   - cd build
   - sudo $CMAKE .. -Dtravis-test_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGTest_DIR="$GTEST_DIR/install/lib/cmake/GTest"
   - sudo $CMAKE --build .
 
-  - # Testing
+  # Testing
   - sudo $CTEST --verbose
 
 notifications:
