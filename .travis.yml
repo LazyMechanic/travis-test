@@ -88,7 +88,6 @@ script:
     - cd build
 
     - sudo $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$GTEST_DIR/install"
-
     - sudo $CMAKE --build .
     - sudo $CMAKE --install .
 
