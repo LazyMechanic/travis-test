@@ -66,12 +66,12 @@ script:
   - CMAKE="$CMAKE_DIR/bin/cmake"
   - CTEST="$CMAKE_DIR/bin/ctest"
 
-  - sudo wget "https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz"
+  - sudo curl -o cmake-3.16.0-rc3-Linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
   - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
   - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
 
   # Download googletest
-  - sudo wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+  - sudo curl -o release-1.10.0.tar.gz https://github.com/google/googletest/archive/release-1.10.0.tar.gz
   - sudo tar -xzf release-1.10.0.tar.gz
 
   - GTEST_DIR="$(pwd)/googletest-release-1.10.0"
