@@ -64,7 +64,7 @@ install:
     - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then export CMAKE="cmake"; fi
     - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then export CTEST="ctest"; fi
     - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Darwin-x86_64.dmg; fi
-    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo hdiutil mount cmake-3.16.0-rc3-Darwin-x86_64.dmg; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo hdiutil attach cmake-3.16.0-rc3-Darwin-x86_64.dmg; fi
     - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo cp -R "/Volumes/cmake-3.16.0-rc3-Darwin-x86_64/CMake.app" /Applications; fi
 
     - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then export CMAKE="/opt/cmake/bin/cmake"; fi
