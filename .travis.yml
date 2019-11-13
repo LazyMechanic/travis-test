@@ -3,10 +3,18 @@ language: cpp
 matrix:
   fast_finish: true
   include:
+    ### OSX
+    - os: osx
+      osx_image: xcode9.4
+    - os: osx
+      osx_image: xcode10
+    - os: osx
+      osx_image: xcode11
+    - os: osx
+      osx_image: xcode11.2
     ### GCC
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -14,18 +22,8 @@ matrix:
           packages:
             - g++-9
             - gcc-9
-      install:
-        # Get newest cmake
-        - CMAKE_DIR="/opt/cmake"
-        - export CMAKE="$CMAKE_DIR/bin/cmake"
-        - export CTEST="$CMAKE_DIR/bin/ctest"
-
-        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -33,18 +31,8 @@ matrix:
           packages:
             - g++-8
             - gcc-8
-      install:
-        # Get newest cmake
-        - CMAKE_DIR="/opt/cmake"
-        - export CMAKE="$CMAKE_DIR/bin/cmake"
-        - export CTEST="$CMAKE_DIR/bin/ctest"
-
-        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -52,19 +40,9 @@ matrix:
           packages:
             - g++-7
             - gcc-7
-      install:
-        # Get newest cmake
-        - CMAKE_DIR="/opt/cmake"
-        - export CMAKE="$CMAKE_DIR/bin/cmake"
-        - export CTEST="$CMAKE_DIR/bin/ctest"
-
-        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
     ### Clang
     - os: linux
       compiler: clang
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -72,20 +50,8 @@ matrix:
             - llvm-toolchain-trusty-8
           packages:
             - clang-8
-      install:
-        # Get newest cmake
-        - CMAKE_DIR="/opt/cmake"
-        - export CMAKE="$CMAKE_DIR/bin/cmake"
-        - export CTEST="$CMAKE_DIR/bin/ctest"
-
-        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
-      before_script:
-        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
     - os: linux
       compiler: clang
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -93,53 +59,48 @@ matrix:
             - llvm-toolchain-trusty-7
           packages:
             - clang-7
-      install:
-        # Get newest cmake
-        - CMAKE_DIR="/opt/cmake"
-        - export CMAKE="$CMAKE_DIR/bin/cmake"
-        - export CTEST="$CMAKE_DIR/bin/ctest"
 
-        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
-      before_script:
-        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
-    ### OSX
-    - os: osx
-      osx_image: xcode6.4
-      install:
-        - export CMAKE="cmake"
-        - export CTEST="ctest"
-        - brew install cmake
-        - brew install wget
+install:
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then export CMAKE="cmake"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then export CTEST="ctest"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Darwin-x86_64.dmg; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo hdiutil mount cmake-3.16.0-rc3-Darwin-x86_64.dmg; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then sudo cp -R "/Volumes/cmake-3.16.0-rc3-Darwin-x86_64/CMake.app" /Applications; fi
 
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then export CMAKE="/opt/cmake/bin/cmake"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then export CTEST="/opt/cmake/bin/ctest"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo mv cmake-3.16.0-rc3-Linux-x86_64 /opt/cmake; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin; fi
+
+    # Download googletest
+    - sudo wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+    - sudo tar -xzf release-1.10.0.tar.gz
+
+    - export GTEST_DIR="$(pwd)/googletest-release-1.10.0"
+    - export BUILD_TYPE=Release
 
 script:
-  # Download googletest
-  - sudo wget release-1.10.0.tar.gz https://github.com/google/googletest/archive/release-1.10.0.tar.gz
-  - sudo tar -xzf release-1.10.0.tar.gz
+    # Compile googletest
+    - cd "$GTEST_DIR"
+    - sudo mkdir build 
+    - cd build
 
-  - GTEST_DIR="$(pwd)/googletest-release-1.10.0"
+    - sudo $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$GTEST_DIR/install"
 
-  - # Compile googletest
-  - cd "$GTEST_DIR"
-  - sudo mkdir build 
-  - cd build
+    - sudo $CMAKE --build .
+    - sudo $CMAKE --install .
 
-  - sudo $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$GTEST_DIR/install"
+    # Compile target
+    - cd "$TRAVIS_BUILD_DIR"
+    - sudo mkdir build
+    - cd build
+    - sudo $CMAKE .. -Dtravis-test_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGTest_DIR="$GTEST_DIR/install/lib/cmake/GTest"
+    - sudo $CMAKE --build .
 
-  - sudo $CMAKE --build .
-  - sudo $CMAKE --install .
-
-  # Compile target
-  - cd "$TRAVIS_BUILD_DIR"
-  - sudo mkdir build
-  - cd build
-  - sudo $CMAKE .. -Dtravis-test_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGTest_DIR="$GTEST_DIR/install/lib/cmake/GTest"
-  - sudo $CMAKE --build .
-
-  # Testing
-  - sudo $CTEST --verbose
+    # Testing
+    - sudo $CTEST --verbose
 
 notifications:
   email:
