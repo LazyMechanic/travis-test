@@ -14,6 +14,15 @@ matrix:
           packages:
             - g++-9
             - gcc-9
+      install:
+        # Get newest cmake
+        - CMAKE_DIR="/opt/cmake"
+        - export CMAKE="$CMAKE_DIR/bin/cmake"
+        - export CTEST="$CMAKE_DIR/bin/ctest"
+
+        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
     - os: linux
       compiler: gcc
       env: BUILD_TYPE=Release
@@ -24,6 +33,15 @@ matrix:
           packages:
             - g++-8
             - gcc-8
+      install:
+        # Get newest cmake
+        - CMAKE_DIR="/opt/cmake"
+        - export CMAKE="$CMAKE_DIR/bin/cmake"
+        - export CTEST="$CMAKE_DIR/bin/ctest"
+
+        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
     - os: linux
       compiler: gcc
       env: BUILD_TYPE=Release
@@ -34,6 +52,15 @@ matrix:
           packages:
             - g++-7
             - gcc-7
+      install:
+        # Get newest cmake
+        - CMAKE_DIR="/opt/cmake"
+        - export CMAKE="$CMAKE_DIR/bin/cmake"
+        - export CTEST="$CMAKE_DIR/bin/ctest"
+
+        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
     ### Clang
     - os: linux
       compiler: clang
@@ -45,6 +72,15 @@ matrix:
             - llvm-toolchain-trusty-8
           packages:
             - clang-8
+      install:
+        # Get newest cmake
+        - CMAKE_DIR="/opt/cmake"
+        - export CMAKE="$CMAKE_DIR/bin/cmake"
+        - export CTEST="$CMAKE_DIR/bin/ctest"
+
+        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
       before_script:
         - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
     - os: linux
@@ -57,19 +93,28 @@ matrix:
             - llvm-toolchain-trusty-7
           packages:
             - clang-7
+      install:
+        # Get newest cmake
+        - CMAKE_DIR="/opt/cmake"
+        - export CMAKE="$CMAKE_DIR/bin/cmake"
+        - export CTEST="$CMAKE_DIR/bin/ctest"
+
+        - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+        - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
       before_script:
         - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
+    ### OSX
+    - os: osx
+      osx_image: xcode6.4
+      install:
+        - export CMAKE="cmake"
+        - export CTEST="ctest"
+        - brew install cmake
+        - brew install wget
+
 
 script:
-  # Get newest cmake
-  - CMAKE_DIR="/opt/cmake"
-  - CMAKE="$CMAKE_DIR/bin/cmake"
-  - CTEST="$CMAKE_DIR/bin/ctest"
-
-  - sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-  - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-  - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
-
   # Download googletest
   - sudo wget release-1.10.0.tar.gz https://github.com/google/googletest/archive/release-1.10.0.tar.gz
   - sudo tar -xzf release-1.10.0.tar.gz
