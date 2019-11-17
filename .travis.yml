@@ -123,6 +123,6 @@ script:
 notifications:
   email:
     recipients:
-      - asharnrus.info@gmail.com
+      - ${EMAIL}
     on_success: never
     on_failure: always
